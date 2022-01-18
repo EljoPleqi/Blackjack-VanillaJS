@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 10px;
+}
+html {
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+h1 {
+  font-family: "VT323", cursive;
+  font-size: 6.4rem;
+  text-align: center;
+}
+p {
+  color: #fff;
+  font-size: 4.8rem;
+}
+.hidden {
+  display: none;
+}
+.invisible {
+  opacity: 0;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.8rem;
+}
+.game-container {
+  margin-top: 6.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  /* place-content: center; */
+}
+.score-board {
+  height: auto;
+  background-color: #333;
+  padding: 2.4rem 3.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+.score-board-sub {
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+  justify-content: center;
+}
+.score-board-sub p {
+  color: #333;
+}
+.points {
+  font-family: "VT323", cursive;
+  font-size: 2rem;
+}
+.current-player-points {
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  gap: 2.4rem;
+  margin: 0 8rem;
+}
+
+.btn {
+  padding: 2.4rem 4.8rem;
+  font-size: 2.4rem;
+  border-radius: 11px;
+  cursor: pointer;
+}
+.cards {
+  display: flex;
+  gap: 2.4rem;
+}
+.card {
+  background-color: #fff;
+  padding: 4.8rem 6.4rem;
+  border-radius: 11px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.house-cards {
+  display: flex;
+  gap: 2.4rem;
+
+  /* margin: 6.4rem 8rem; */
+}
+.card.face-down {
+  background-image: url(./img/2025984.svg);
+  background-size: cover;
+  padding: 4.8rem 6.4rem;
+  border-radius: 11px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.card.face-down * {
+  opacity: 0;
+}
+
+.card-value,
+.card-icon i {
+  font-size: 4.8rem;
+  color: #333;
+}

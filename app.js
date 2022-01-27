@@ -1,27 +1,34 @@
-const btn = document.querySelector(".draw-card-btn");
-const winBtn = document.querySelector(".check-winner-btn");
-const newGameBtn = document.querySelector(".new-game");
+const btn = document.querySelector('.draw-card-btn');
+const winBtn = document.querySelector('.check-winner-btn');
+const newGameBtn = document.querySelector('.new-game');
 
-const scoreBoard = document.querySelector(".score-board-sub");
-const displayPlayerPoints = document.querySelector(".current-player-points");
-const cardsContainer = document.querySelector(".cards");
-const houseCardsContainer = document.querySelector(".house-cards");
-const faceDownCard = document.querySelector(".face-down");
+const scoreBoard = document.querySelector('.score-board-sub');
+const displayPlayerPoints = document.querySelector('.current-player-points');
+const cardsContainer = document.querySelector('.cards');
+const houseCardsContainer = document.querySelector('.house-cards');
+const faceDownCard = document.querySelector('.face-down');
 
 const heartsIcon = `<i class="ph-heart-straight"></i>`;
 const spadesIcon = `<i class="ph-spade"></i>`;
 const clovesIcon = `<i class="ph-club"></i>`;
 const diamondsIcon = `<i class="ph-diamond"></i>`;
-const cards = ["a", 2, 3, 4, 5, 6, 7, 8, 9, "10", "j", "q", "k"];
-const cardSymbol = ["Spades_", "Hearts_", "Diamonds_", "Clovers_"];
+const cards = ['a', 2, 3, 4, 5, 6, 7, 8, 9, '10', 'j', 'q', 'k'];
+const cardSymbol = ['Spades_', 'Hearts_', 'Diamonds_', 'Clovers_'];
 
 // make the deck
-const spades = cards.map((card) => cardSymbol[0] + card);
-const hearts = cards.map((card) => cardSymbol[1] + card);
-const clovers = cards.map((card) => cardSymbol[2] + card);
-const diamonds = cards.map((card) => cardSymbol[3] + card);
 
-const deck = [...spades, ...clovers, ...diamonds, ...hearts];
+const createDeck = (cards, arr) => {
+  const b = [];
+  for (sign of arr) {
+    for (card of cards) {
+      const x = sign + card;
+      b.push(x);
+    }
+  }
+  return b;
+};
+
+const deck = createDeck(cards, cardSymbol);
 
 let symbol;
 
@@ -30,7 +37,7 @@ const generateCard = () => Math.floor(Math.random() * 53);
 
 function calcHand(arr) {
   arr.forEach((card) => {
-    if (card === "j" || card === "q" || card === "k" || card === "a") {
+    if (card === 'j' || card === 'q' || card === 'k' || card === 'a') {
       arr.push(10);
     } else {
       const cardNumber = Number(card);
@@ -46,12 +53,12 @@ const playerHand = [deck[generateCard()], deck[generateCard()]];
 const houseHand = [deck[generateCard()], deck[generateCard()]];
 
 const extractCardValues = (arr) =>
-  (cardValues = arr.map((card) => card.split("_").pop()));
+  (cardValues = arr.map((card) => card.split('_').pop()));
 
 extractCardValues(playerHand);
 
 const exportIcons = (arr) => {
-  const playerCard = arr.map((card) => card.split("_").shift());
+  const playerCard = arr.map((card) => card.split('_').shift());
   const cardType = [...playerCard];
   return cardType;
 };
@@ -69,7 +76,7 @@ console.log(playerPoints, playerTotalPoints);
 
 // house hand
 
-const houseCardValue = houseHand.map((card) => card.split("_").pop());
+const houseCardValue = houseHand.map((card) => card.split('_').pop());
 
 let housePoints = calcHand(houseCardValue);
 
@@ -91,13 +98,13 @@ const playerDrawsCard = () => {
 // RENDERING CARDS
 
 function findSymbol(card) {
-  if (card === "Spades") {
+  if (card === 'Spades') {
     symbol = spadesIcon;
-  } else if (card === "Hearts") {
+  } else if (card === 'Hearts') {
     symbol = heartsIcon;
-  } else if (card === "Diamonds") {
+  } else if (card === 'Diamonds') {
     symbol = diamondsIcon;
-  } else if (card === "Clovers") {
+  } else if (card === 'Clovers') {
     symbol = clovesIcon;
   }
 }
@@ -106,9 +113,9 @@ function renderHouseCards(arr) {
   arr.forEach((card) => {
     findSymbol(card);
     const houseCardHTML = `<div class="card"><p class=" card-value">${houseCardValue.shift()}</p><div class="card-icon">${symbol}</div></div>`;
-    houseCardsContainer.insertAdjacentHTML("beforeend", houseCardHTML);
+    houseCardsContainer.insertAdjacentHTML('beforeend', houseCardHTML);
   });
-  houseCardsContainer.lastChild.classList.add("face-down");
+  houseCardsContainer.lastChild.classList.add('face-down');
 }
 if (faceDownCard) {
 }
@@ -120,7 +127,7 @@ function renderPlayerIcons(card) {
     .shift()
     .toUpperCase()}</p><div class="card-icon">${symbol}</div></div>`;
 
-  cardsContainer.insertAdjacentHTML("beforeend", cardHTML);
+  cardsContainer.insertAdjacentHTML('beforeend', cardHTML);
 }
 
 playerCardIcons.forEach((card) => renderPlayerIcons(card));
@@ -148,25 +155,25 @@ const getExtraCard = () => {
 
   if (playerTotalPoints > 21) {
     displayPlayerPoints.textContent = `You lost by exceeding 21 points`;
-    scoreBoard.insertAdjacentHTML("beforeend", pointsHTML);
+    scoreBoard.insertAdjacentHTML('beforeend', pointsHTML);
   }
 };
 
 //  CHECKING THE WINNER
 
 const checkWinner = () => {
-  btn.classList.add("hidden");
-  winBtn.classList.add("hidden");
+  btn.classList.add('hidden');
+  winBtn.classList.add('hidden');
   const pointsHTML = `<p class="points">Player Points: ${playerTotalPoints}</p><p class="points">House Points: ${houseTotalPoints}</p>`;
 
-  houseCardsContainer.lastChild.classList.remove("face-down");
+  houseCardsContainer.lastChild.classList.remove('face-down');
 
   if (playerTotalPoints < houseTotalPoints) {
     displayPlayerPoints.textContent = `The house won with ${houseTotalPoints} points`;
-    scoreBoard.insertAdjacentHTML("beforeend", pointsHTML);
+    scoreBoard.insertAdjacentHTML('beforeend', pointsHTML);
   } else if (playerTotalPoints <= 21 && playerTotalPoints > houseTotalPoints) {
     displayPlayerPoints.textContent = `You won with ${playerTotalPoints} points`;
-    scoreBoard.insertAdjacentHTML("beforeend", pointsHTML);
+    scoreBoard.insertAdjacentHTML('beforeend', pointsHTML);
   }
 };
 
@@ -175,6 +182,6 @@ const startNewGame = () => {
 };
 
 // EVENT LISTENERS
-btn.addEventListener("click", getExtraCard);
-winBtn.addEventListener("click", checkWinner);
-newGameBtn.addEventListener("click", startNewGame);
+btn.addEventListener('click', getExtraCard);
+winBtn.addEventListener('click', checkWinner);
+newGameBtn.addEventListener('click', startNewGame);
